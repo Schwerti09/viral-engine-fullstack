@@ -61,6 +61,18 @@ export async function getAuthContext(): Promise<AuthContext | null> {
   }
 }
 
+export async function getSessionUser() {
+  const ctx = await getAuthContext();
+  if (!ctx) return null;
+  return prisma.user.findUnique({ where: { id: ctx.userId } });
+}
+
+export async function clearSession() {
+  const ctx = await getAuthContext();
+  if (ctx) await revokeSession(ctx.sessionId);
+  clearSessionCookie();
+}
+
 export async function refreshAuthToken(context: AuthContext) {
   const token = await signAuthToken(
     { sub: context.userId, sid: context.sessionId, wid: context.workspaceId ?? undefined },
