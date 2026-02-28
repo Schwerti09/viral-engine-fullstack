@@ -1,6 +1,6 @@
 /**
  * ClawGuru Institutional Ops – Runbook Data Definitions
- * 25 providers × 40 services × 60 issues × 6 years = 360,000 unique slugs
+ * 25 providers × 40 services × 61 issues × 6 years = 366,000 unique slugs
  */
 
 export type Provider = {
